@@ -53,7 +53,7 @@ class Home extends CI_Controller {
       $cek_kode = $this->home_model->checkKodeByKode($kode);
 
       if($cek_kode->num_rows() > 0){
-        $detail = $this->home_model->getPemesanan($kode);
+        $detail = $this->home_model->getInfoPemesanan($kode);
 
         $tgl = explode("-", $detail->tanggal);
         $new_tgl = "";
@@ -124,17 +124,17 @@ class Home extends CI_Controller {
       $cek_kode = $this->home_model->checkKode($kode_pesan, $identitas);
 
       if($cek_kode->num_rows() > 0){
-        $pemesanan = $this->home_model->getInfoPemesanan($kode_pesan);
+        $pemesanan = $this->home_model->getStatusPemesananByKode($kode_pesan, $identitas);
         $user_info = $this->home_model->getUserInfo($pemesanan->id_pemesan);
 
         if($pemesanan->status == 'L'){
           $date = explode("-", $pemesanan->konfirmasi);
           $date = $date[2] ."/". $date[1] ."/". $date[0];
-          $message = '<p class="alert alert-success text-center">Pemesanan '. $kode_pesan .' telah dikonfirmasi sebelumnya pada '. $date .' oleh '. $user_info->nama .'</p>';
+          $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> telah dikonfirmasi sebelumnya pada '. $date .' oleh '. $user_info->nama .'</p>';
         }
         else {
           if($this->home_model->updateStatusPemesanan($kode_pesan))
-            $message = '<p class="alert alert-success text-center">Pemesanan '. $kode_pesan .' berhasil dikonfirmasi atas nama '. $user_info->nama .'</p>';
+            $message = '<p class="alert alert-success text-center">Pemesanan <strong>'. $kode_pesan .'</strong> berhasil dikonfirmasi atas nama '. $user_info->nama .'</p>';
           else
             $message = '<p class="alert alert-danger text-center"><b>Terjadi kesalahan</b>, konfirmasi pembelian gagal.</p>';
         }

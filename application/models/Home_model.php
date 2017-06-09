@@ -38,13 +38,13 @@ class Home_model extends CI_Model {
     return $query->row();
   }
 
-  public function getInfoPemesanan(){
+  public function getPemesanan(){
     $q = "SELECT * FROM pemesanan";
     $query = $this->db->query($q);
-    return $query->row();
+    return $query->result();
   }
 
-  public function getPemesanan($kode){
+  public function getInfoPemesanan($kode){
     // SELECT a.nama, b.harga, b.tanggal, b.status
     // FROM pemesanan b
     // INNER JOIN pembeli a
@@ -57,6 +57,12 @@ class Home_model extends CI_Model {
             ON b.id_pemesan = a.id
           WHERE b.kode_pesan = '". $kode ."'";
 
+    $query = $this->db->query($q);
+    return $query->row();
+  }
+
+  public function getStatusPemesananByKode($kode, $id){
+    $q = "SELECT * FROM pemesanan WHERE kode_pesan = '". $kode ."' AND id_pemesan = '". $id ."'";
     $query = $this->db->query($q);
     return $query->row();
   }

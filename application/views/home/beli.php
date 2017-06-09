@@ -77,6 +77,7 @@
     $.fn.updateJumlah = function(){
       var jum = $(this).val();
       var kod = $(this).attr("data-item");
+      var subtotal_index = "subtotal-" + kod;
 
       $.ajax({
         type: "post",
@@ -86,11 +87,13 @@
           "jumlah": jum,
           "kode_obat": kod
         },
+        beforeSend: function(){
+          $("#"+subtotal_index).html("Loading...");
+          $("#total").html("Loading...");
+        },
         success: function(res){
-          var subtotal_index = "subtotal-" + kod;
-
-          $("#total").html(res.total);
           $("#"+subtotal_index).html(res.subtotal);
+          $("#total").html(res.total);
         }
       });
     }
