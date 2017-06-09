@@ -1,0 +1,24 @@
+.jumbotron {
+  background-color: #4cb5f5; /* 4cb5f5, b7b8b6, 34675c, b3c100 */
+  color: #fff;
+  padding: 100px 25px;
+}
+
+.tombol {
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  cursor: pointer;
+}
+
+.tombol-success {background-color: #4caf50;}
+.tombol-success:hover {background-color: #46a049;}
+
+.tombol-warning {background-color: #ff9800;}
+.tombol-warning:hover {background-color: #e68a00;}
+
+.tombol-danger {background-color: #f44336;}
+.tombol-danger:hover {background-color: #da190b;}
+
+.tombol-info {background-color: #2196f3;}
+.tombol-info:hover {background-color: #0b7dda;}
