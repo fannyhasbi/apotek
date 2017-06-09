@@ -20,7 +20,7 @@
         <td><?= $item->nama;?></td>
         <td><?= $item->bentuk;?></td>
         <td><?= $item->konsumen;?></td>
-        <td><?= $item->harga;?></td>
+        <td><?= number_format($item->harga, 0, ',', '.');?></td>
         <td>
           <a href="<?= site_url('obat/'.$item->kode_obat);?>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"> Detail</span></a>
           <a href="<?= site_url('beli/'.$item->kode_obat);?>" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-shopping-cart"> Beli</span></a>
