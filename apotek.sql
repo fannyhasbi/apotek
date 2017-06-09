@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jun 09, 2017 at 03:15 
--- Server version: 10.1.21-MariaDB
--- PHP Version: 7.1.1
+-- Host: 127.0.0.1
+-- Generation Time: Jun 10, 2017 at 12:37 AM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 7.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,14 +23,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_pesan`
+-- Table structure for table `detail_pemesanan`
 --
 
-CREATE TABLE `detail_pesan` (
+CREATE TABLE `detail_pemesanan` (
+  `id` int(4) NOT NULL,
   `kode_pesan` varchar(7) NOT NULL,
   `kode_obat` char(5) NOT NULL,
   `jumlah` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `detail_pemesanan`
+--
+
+INSERT INTO `detail_pemesanan` (`id`, `kode_pesan`, `kode_obat`, `jumlah`) VALUES
+(1, '8X60SSU', 'A0001', 1),
+(2, '8X60SSU', 'A0002', 20),
+(6, '2GH3B48', 'A0001', 26),
+(7, '2GH3B48', 'A0002', 33),
+(8, '2GH3B48', 'C0001', 13),
+(9, 'FAVEJLI', 'B0002', 30),
+(10, 'FAVEJLI', 'C0001', 25),
+(11, 'FAVEJLI', 'A0004', 30);
 
 -- --------------------------------------------------------
 
@@ -39,19 +54,11 @@ CREATE TABLE `detail_pesan` (
 --
 
 CREATE TABLE `keranjang` (
+  `id` int(4) NOT NULL,
   `kode_obat` char(5) NOT NULL,
   `jumlah` int(3) NOT NULL,
   `id_session` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `keranjang`
---
-
-INSERT INTO `keranjang` (`kode_obat`, `jumlah`, `id_session`) VALUES
-('A0001', 4, 'ltp1xhyx3giz0zzqyn35'),
-('C0001', 1, 'ltp1xhyx3giz0zzqyn35'),
-('B0002', 1, 'ltp1xhyx3giz0zzqyn35');
 
 -- --------------------------------------------------------
 
@@ -84,6 +91,26 @@ INSERT INTO `obat` (`kode_obat`, `nama`, `bentuk`, `konsumen`, `manfaat`, `harga
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pembeli`
+--
+
+CREATE TABLE `pembeli` (
+  `id` varchar(20) NOT NULL,
+  `nama` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pembeli`
+--
+
+INSERT INTO `pembeli` (`id`, `nama`) VALUES
+('21120116140068', 'Fanny Hasbi'),
+('21120116140069', 'Fajar Nahari'),
+('21120116140070', 'Azizah Kamalia');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pemesanan`
 --
 
@@ -92,23 +119,36 @@ CREATE TABLE `pemesanan` (
   `id_pemesan` varchar(20) NOT NULL,
   `harga` float NOT NULL,
   `tanggal` date NOT NULL,
-  `status` enum('B','L') NOT NULL DEFAULT 'B'
+  `status` enum('B','L') NOT NULL DEFAULT 'B',
+  `konfirmasi` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pemesanan`
+--
+
+INSERT INTO `pemesanan` (`kode_pesan`, `id_pemesan`, `harga`, `tanggal`, `status`, `konfirmasi`) VALUES
+('2GH3B48', '21120116140070', 1136000, '2017-06-09', 'L', '2017-06-09'),
+('8X60SSU', '21120116140068', 205000, '2017-06-09', 'L', '2017-06-09'),
+('FAVEJLI', '21120116140069', 3010000, '2017-06-09', 'L', '2017-06-09');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `detail_pesan`
+-- Indexes for table `detail_pemesanan`
 --
-ALTER TABLE `detail_pesan`
-  ADD KEY `kode_obat` (`kode_obat`);
+ALTER TABLE `detail_pemesanan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kode_obat` (`kode_obat`),
+  ADD KEY `kode_pesan` (`kode_pesan`);
 
 --
 -- Indexes for table `keranjang`
 --
 ALTER TABLE `keranjang`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `kode_obat` (`kode_obat`);
 
 --
@@ -118,10 +158,41 @@ ALTER TABLE `obat`
   ADD PRIMARY KEY (`kode_obat`);
 
 --
+-- Indexes for table `pembeli`
+--
+ALTER TABLE `pembeli`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
   ADD PRIMARY KEY (`kode_pesan`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `detail_pemesanan`
+--
+ALTER TABLE `detail_pemesanan`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `keranjang`
+--
+ALTER TABLE `keranjang`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `detail_pemesanan`
+--
+ALTER TABLE `detail_pemesanan`
+  ADD CONSTRAINT `detail_pemesanan_ibfk_1` FOREIGN KEY (`kode_obat`) REFERENCES `obat` (`kode_obat`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `detail_pemesanan_ibfk_2` FOREIGN KEY (`kode_pesan`) REFERENCES `pemesanan` (`kode_pesan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
