@@ -16,6 +16,7 @@ Sistem informasi dan penjualan obat berbasis web
 * Admin
   * Tambah obat
   * Edit obat
+  * Hapus obat
   * Lihat transaksi
 
 ## Instalasi
