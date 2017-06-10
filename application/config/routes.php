@@ -12,6 +12,17 @@ $route['beli/(:any)'] = 'home/tambah_keranjang/$1';
 $route['update_jumlah'] = 'home/update_jumlah';
 $route['del_item'] = "home/del_item";
 
+//Admin
+$route['admin'] = 'admin';
+$route['login'] = 'admin/login';
+$route['admin/logout'] = 'admin/logout';
+$route['admin/transaksi'] = 'admin/transaksi';
+$route['admin/transaksi/(:any)'] = 'admin/transaksi/$1';
+$route['admin/obat'] = 'admin/obat';
+$route['admin/obat/daftar'] = 'admin/daftar_obat';
+$route['admin/obat/daftar/(:any)'] = 'admin/edit_obat/$1';
+$route['admin/obat/tambah'] = 'admin/tambah_obat';
+
 $route['default_controller'] = 'home';
 
 $route['404_override'] = '';

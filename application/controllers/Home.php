@@ -208,7 +208,8 @@ class Home extends CI_Controller {
       }
 
       $pesanFlash  = '<h1>Terima Kasih '. $pembeli->nama .'</h1>';
-      $pesanFlash .= '<h2>Kode Pemesanan : '. $new_kode_pesan .'</h2>';
+      $pesanFlash .= '<h2>Kode pemesanan Anda adalah: <mark>'. $new_kode_pesan .'</mark></h2>';
+      $pesanFlash .= '<p>Silahkan lakukan pembayaran kemudian konfirmasi.</p>';
       $this->session->set_flashdata('msg', $pesanFlash);
       redirect(site_url('beli'));
     }
