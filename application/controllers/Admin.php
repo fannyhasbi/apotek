@@ -17,6 +17,7 @@ class Admin extends CI_Controller {
 
   public function index(){
     $this->cekLogin();
+
     $data['view_name'] = 'dashboard';
     $this->load->view('admin/index_view', $data);
   }
@@ -89,6 +90,9 @@ class Admin extends CI_Controller {
 
     $data['obat'] = $this->home_model->getObat();
 
+    //didapat dari penghapusan obat
+    $data['message'] = $this->session->flashdata('msg');
+
     $data['view_name'] = 'daftar_obat';
     $this->load->view('admin/index_view', $data);
   }
@@ -127,6 +131,19 @@ class Admin extends CI_Controller {
 
       $data['view_name'] = 'edit_obat';
       $this->load->view('admin/index_view', $data);
+    }
+  }
+
+  public function hapus_obat($kode){
+    $this->cekLogin();
+
+    if($this->admin_model->deleteObat($kode)){
+      $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">Obat dengan kode <mark>'. $kode ."'</mark> berhasil dihapus</div>");
+      redirect(site_url('admin/obat/daftar'));
+    }
+    else{
+      $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Obat dengan kode <mark>'. $kode ."</mark> gagal dihapus</div>");
+      redirect(site_url('admin/obat/daftar'));
     }
   }
 

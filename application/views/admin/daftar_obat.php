@@ -3,7 +3,8 @@
   <h2>DAFTAR OBAT</h2>
 </div>
 
-<div class="container">
+<div class="container" style="margin-bottom: 50px;">
+  <?= $message; ?>
   <table class="table">
     <tr>
       <th>Kode Obat</th>
@@ -20,7 +21,10 @@
       <td><?= $item->bentuk; ?></td>
       <td><?= $item->konsumen; ?></td>
       <td><?= 'Rp '. number_format($item->harga, 0, ',', '.'); ?></td>
-      <td><a href="<?= site_url('admin/obat/daftar/'.$item->kode_obat);?>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></td>
+      <td>
+        <a href="<?= site_url('admin/obat/daftar/'.$item->kode_obat);?>"><span class="glyphicon glyphicon-pencil"></span> Edit</a> | 
+        <a href="<?= site_url('admin/obat/hapus/'.$item->kode_obat);?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+      </td>
     </tr>
     <?php endforeach; ?>
   </table>

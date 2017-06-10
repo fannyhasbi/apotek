@@ -89,6 +89,12 @@ class Admin_model extends CI_Model {
       return false;
   }
 
-
+  public function deleteObat($kode){
+    $q = "DELETE FROM obat WHERE kode_obat = '$kode'";
+    if($this->db->query($q))
+      return true;
+    else
+      return false;
+  }
 
 }
