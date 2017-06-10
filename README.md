@@ -13,6 +13,10 @@ Sistem informasi dan penjualan obat berbasis web
 * Beli obat
 * Cek pemesanan
 * Konfirmasi pemesanan
+* Admin
+  * Tambah obat
+  * Edit obat
+  * Lihat transaksi
 
 ## Instalasi
 1. Buat folder baru di htdocs dengan nama apotek
