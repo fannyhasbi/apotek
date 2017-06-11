@@ -102,7 +102,7 @@ class Admin extends CI_Controller {
 
     if($this->input->post('tambah')){
       if($this->admin_model->insertObat())
-        $this->session->set_flashdata('msg', '<div class="alert alert-success">Obat berhasil dimasukkan kedalam database</div>');
+        $this->session->set_flashdata('msg', '<div class="alert alert-success">Obat '. $this->input->post('nama') .' berhasil dimasukkan kedalam database</div>');
       else
         $this->session->set_flashdata('msg', '<div class="alert alert-danger"><b>Terjadi kesalahan</b>, obat gagal dimasukkan kedalam database</div>');
       redirect(site_url('admin/obat/tambah'));
@@ -122,7 +122,7 @@ class Admin extends CI_Controller {
       if($this->admin_model->updateObat($kode))
         $this->session->set_flashdata('msg', '<div class="alert alert-success">Obat dengan kode <b>'.$kode .'</b> berhasil diupdate</div>');
       else
-        $this->session->set_flashdata('msg', '<div class="alert alert-danger"><b>Terjadi kesalahan</b>, obat $kode gagal diupdate</div>');
+        $this->session->set_flashdata('msg', '<div class="alert alert-danger"><b>Terjadi kesalahan</b>, obat '. $kode .' gagal diupdate</div>');
       redirect(site_url('admin/obat/daftar/'.$kode));
     }
     else {

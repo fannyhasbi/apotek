@@ -15,8 +15,8 @@
       <tr>
         <td><?= $item->nama; ?></td>
         <td><?= $item->jumlah; ?></td>
-        <td><?= number_format($item->harga, 0, '.', ','); ?></td>
-        <td><?= $item->subtotal; ?></td>
+        <td><?= number_format($item->harga, 0, ',', '.'); ?></td>
+        <td><?= number_format($item->subtotal, 0, ',', '.'); ?></td>
       </tr>
     <?php endforeach; ?>
   </table>
@@ -34,7 +34,7 @@
       </tr>
       <tr>
         <th>Total:</th>
-        <td><?= $pemesanan->harga; ?></td>
+        <td><?= 'Rp '. number_format($pemesanan->harga, 0, ',', '.'); ?></td>
       </tr>
       <tr class="alert <?= $pemesanan->status == 'B' ? 'alert-danger' : 'alert-success' ?>">
         <th>Status:</th>
